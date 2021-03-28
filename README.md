@@ -11,6 +11,6 @@
 - [Stanford: CS 97SI (2015)](https://web.stanford.edu/class/cs97si/)
 - [Stonybrook: CSE 392 (2012)](https://www3.cs.stonybrook.edu/~skiena/392/)
 - [TAMU: CSCE 430 (2021)](https://www.cs.utexas.edu/users/utpc/courses/TAMU-CSCE-430.pdf)
-- [UBC: CPSC 490](https://www.students.cs.ubc.ca/~cs-490/2019W2/problem-solving/)
+- [UBC: CPSC 490 (2021)](https://www.students.cs.ubc.ca/~cs-490/2019W2/problem-solving/)
 - [UCF: COP 4516 (2021)](http://www.cs.ucf.edu/~dmarino/progcontests/cop4516/spr2021/)
 - [VT: CS 2984/4984 (2020)](https://www.cs.utexas.edu/users/utpc/courses/VT-CS-2984-4984.pdf)
