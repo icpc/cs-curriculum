@@ -1,0 +1,45 @@
+Week 4:
+   * Spend time talking about the assignment for the week.  Discuss the 
+     accuracy (or lack thereof) the students' estimates.  Have every student
+     report their results and their observations.  Focus on introspection and
+     techniques identify what is causing the inaccuracies.  (This could take
+     upwards of an hour or more depending on the number of students)
+
+     Review the data gathered by the students.  Where is the bulk of the time
+     being spent?  This will vary person to person.  Also, if there are 
+     significant failed submissions, review the penalty in contest scoring
+     due to failed submissions.  This may motivate discussions concerning the
+     benefit of spending more time in one area to reap the benefit in another
+     area (i.e. more testing to prevent failed submission penalties or
+     additional time spent during analysis to do a better job of problem
+     ordering)
+
+   * Mix the teams of 2 (same skill levels) up and repeat the 1 hour 
+     programming contest on Kattis using problems in the 1.3 - 1.5 range.  
+     Advanced teams can extend the difficulty range up to 2.0 but all teams
+     are required to complete more than one problem in the ~1 hour time limit.
+     One keyboard / screen per team, record time to analyze, rank, and order 
+     them as well as write down estimated time to code / test / debug / get to 
+     a solution.
+    
+     Teams should solve the problems in their specified order using a single
+     keyboard, screen with one student typing and the other recording data
+     about time to code, testing time, debugging time, and final total time
+     required to get to an accepted solution.
+
+   * Spend some time upsolving the contest problems.  Encourage students to
+     walk others through their working solutions.  Encourage the beginners to
+     also present their solutions even to the seemingly trivial problems.  Have
+     students ask one another about decisions they made when coding up
+     solutions.
+
+   * Assignment: See Assignment.html for two lists of problems.  This week 
+     assign teams of two to work on the out-of-class problems.  Keep the two
+     members of the teams at the same relative ability levels where possible.
+     Beginner teams should work the beginner problems and advanced to the
+     advanced.  Note there are overlap in the problems.  Advanced teams need
+     to work on speed and accuracy for the 'easy' problems.  They should
+     strive for quick, efficient coding and zero rejected submissions.
+
+   * Spend at least six hours working on problems.  You are good at what you
+     practice and you *need* more practice.

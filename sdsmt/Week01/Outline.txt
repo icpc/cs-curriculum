@@ -1,0 +1,59 @@
+Week 1:
+   * Introduction to competitive programming
+   * Text: Competitive Programmer's Handbook, Antti Laaksonen, Draft copy 2018
+   * Chapter 1: Introduction
+      * Linux accounts (Opp Lab, installing WSL or Ubuntu VM)
+      * Judging accounts (Kattis and LeetCode)
+      * Practice (everyone) command line compiling
+         * Discussion of compiler flags (warnings, optimization, limit errors)
+            * -O3
+            * -Wall
+            * -std=c++11 (-std=c++14)
+            * -fmax-errors=5
+            * g++ ... | head --lines 32
+            * g++ ... | grep "Pattern to find" | head --lines 10
+         * Including entire standard library with:
+           #include <bits/stdc++.h>
+           ...
+           using namespace std;
+
+      * Practice reading from standard input using cin.  Discuss / review how
+        standard I/O works with respect to reading integers, floats, and
+        strings.  Discuss when to use cin and when to use getline.  I.E. don't
+        parse input if you don't have to.
+
+      * Practice reading single / multiple integers/floats and strings from
+        standard input.  Also, introduce / review redirected file I/O for the
+        beginners.
+
+      * General discussion of how a contest runs, how the scoring is calculated,
+        and how the team wants to attack a problem set.
+
+   * Break into teams of 2-3 and practice submitting solutions to Kattis via
+     their web interface (https://open.kattis.com/).  For beginner teams suggest
+     
+     https://open.kattis.com/problems/hello
+     https://open.kattis.com/problems/cold
+   
+     All team members need to submit and have accepted solutions for both
+     problems before leaving.
+
+   * Assignment: This is a 3 credit class so 6-9 hours out of class work can
+     be expected.  See Week01/Assignment.html for a list of 20 problems that
+     all students are required to read and assess.
+      * Understanding: Do I know what the problem is asking me to solve?  Write
+        one paragraph describing what the solution will provide.
+      * Recognition: Simply describe the method / algorithm that will solve the
+        problem.
+      * Ranking: Of the 20 problems, rank this problem's difficulty.  Trivial,
+        Easy, Medium, Hard, Impossible (considering *your ability*)
+      * Sizing: Give a time/space complexity analysis of your proposed solution
+      * Time Estimate: Give an estimate (in minutes/hours) of how long you 
+        believe it would take you to code up your solution.  At this time, do
+        not include final debugging and testing, just the coding part.
+      * Ordering: Given the Ranking, sizing, and time estimate.  Place the 20
+        problems in order in which you / your team should attack them.
+
+   * This assignment is the foundation of what we will try to achieve over the
+     semester.  Problem solving is very important but so, too, is the ability
+     to rank, size, and estimate time to code the solutions.

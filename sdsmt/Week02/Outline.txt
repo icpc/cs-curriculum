@@ -1,0 +1,52 @@
+Week 2:
+   * Spend time talking about the assignment for the week.  Discuss the 
+     accuracy (or lack thereof) the students' estimates.  Have every student
+     report their results and their observations.  Focus on introspection and
+     techniques identify what is causing the inaccuracies.  (This could take
+     upwards of an hour or more depending on the number of students)
+
+   * Introduction to floating point arithmetic in computers.
+
+     All students require this, even the advanced students since they *think*
+     they understand the issues but most do not.  This is a follow up to the
+     reading in Chapter 1 "Working with numbers" section.  Hammer this home
+     repeatedly as it is a frequent mistake which cause rejected solutions and
+     hard to track bugs.
+
+     Require all students to read the relevant sections from:
+
+     What every computer scientist should know about floating point arithmetic. 
+       https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
+        
+      * Review modular arithmetic.  Advanced students can use the review and
+        beginners may not have seen this (or internalized it yet).  Describe
+        how/why some problems require a solution 'modulo m' as opposed to the
+        full, very large actual answer.
+
+        Use code segments to demonstrate the concepts:
+
+           long long x = 1;
+           for (int i = 2 ; i <= n ; i++)
+              x = (x * i) % m;
+
+           cout << x % m << endl;
+
+   * Do a brief (1 hour) programming contest on Kattis.  Teams of 2 and select
+     4-5 problems in the 1.2 - 1.5 range of difficulty (Kattis difficulty 
+     estimates are not perfect but okay for this purpose).  Require students to
+     work together on a single keyboard / screen in a paired programming mode.
+     The team should read the problems, analyze, rank, and order them as well
+     as write down estimated time to code / test / debug / get to a solution.
+    
+     Teams should solve the problems in their specified order using a single
+     keyboard, screen with one student typing and the other recording data
+     about time to code, testing time, debugging time, and final total time
+     required to get to an accepted solution.
+
+     Come back together as a class and discuss the accuracy of the estimates
+     in the team setting.  Where are the students good at estimating and where
+     are they bad?  Are they under or over estimating time to final solution?
+     Where is the bulk of the time being spent?
+
+   * Assignment: See Assignment.html for a list of 10 problems that all 
+     students are required to read and assess.

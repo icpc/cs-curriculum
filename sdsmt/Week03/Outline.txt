@@ -1,0 +1,55 @@
+Week 3:
+   * Spend time talking about the assignment for the week.  Discuss the 
+     accuracy (or lack thereof) the students' estimates.  Have every student
+     report their results and their observations.  Focus on introspection and
+     techniques identify what is causing the inaccuracies.  (This could take
+     upwards of an hour or more depending on the number of students)
+
+     Review the data gathered by the students.  Where is the bulk of the time
+     being spent?  This will vary person to person.  Also, if there are 
+     significant failed submissions, review the penalty in contest scoring
+     due to failed submissions.  This may motivate discussions concerning the
+     benefit of spending more time in one area to reap the benefit in another
+     area (i.e. more testing to prevent failed submission penalties or
+     additional time spent during analysis to do a better job of problem
+     ordering)
+
+   * Discuss techniques for shortening code (macros, typenames, etc.).  Also
+     point out how this can be a detriment in a team setting if everyone isn't
+     on the same page concerning naming conventions and understanding of the
+     various language constructs that allow this.  We will revisit this topic
+     when teams have started to settle so that individual teams can develop
+     their own style and practice that together.
+
+   * Discuss how problem descriptions can lead you to algorithm choices.  For
+     example, using CPU Time limit, Memory Limit, and input ranges to get hints
+     about the kind of solution likely to succeed.  (E.G. input sizes of 
+     1,000,000 exclude solutions with time complexity > O(N log N) if the CPU
+     time limit is only a few seconds.  Chapter 2 in the text has a 'rule of
+     thumb' table in the _Estimating efficiency_ section.
+
+   * Mix the teams of 2 (same skill levels) up and repeat the 1 hour 
+     programming contest on Kattis using problems in the 1.3 - 1.5 range.  
+     Advanced teams can extend the difficulty range up to 2.0 but all teams
+     are required to complete more than one problem in the ~1 hour time limit.
+     One keyboard / screen per team, record time to analyze, rank, and order 
+     them as well as write down estimated time to code / test / debug / get to 
+     a solution.
+    
+     Teams should solve the problems in their specified order using a single
+     keyboard, screen with one student typing and the other recording data
+     about time to code, testing time, debugging time, and final total time
+     required to get to an accepted solution.
+
+     Come back together as a class and discuss the accuracy of the estimates
+     in the team setting.  Where are the students good at estimating and where
+     are they bad?  Are they under or over estimating time to final solution?
+     Where is the bulk of the time being spent?  Are the estimates getting 
+     better (i.e. more accurate?)  If not, why not?  If so, good.
+
+   * Spend at least six hours working on problems.  You are good at what you
+     practice and you *need* more practice.
+
+   * Assignment: See Assignment.html for two lists of problems.  For the newer
+     students, work on the [beginner] problems.  For the advanced students,
+     work on the [advanced] set.

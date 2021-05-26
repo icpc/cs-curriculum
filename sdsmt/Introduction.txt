@@ -1,0 +1,37 @@
+This is a new course which was hastily developed in order to offer an 
+additional elective during the Spring 2020 semester at SDSMT.  There were 20 
+students enrolled with a mix of experienced and beginners with respect to 
+competitive programming.  Some exercises are aimed at beginners, come at 
+advanced, and some at mixed groups of the two.
+
+During the semester, students were instructed to create accounts on two
+different online judging sites, Kattis and LeetCode.  Many of the problems
+referenced in these materials come from one of those sites.
+
+This semester also had two events which impacted the course of study and
+exercises.  First, the global pandemic caused an extension of the normal
+spring break from 1 to 2 weeks.  Second, we had a team competing in the
+1st annual North America Championship (NAC) held in Atlanta, GA.  The
+pandemic also caused the structure of the course to go from 100% inperson
+to 100% online after spring break.
+
+CSC 492: Topics - Competitive Programming was offered as a 3 credit course
+which had a prerequisite of CSC 315: Data Structures and Algorithm Design.
+As mentioned earlier, enrollment was 20 students ranging from Sophomores
+who had either already completed or were in the process of taking CSC 315
+all the way up to last semester Seniors about to graduate.  In addition,
+Luke Videckis, a two-time ICPC World Finalist attended many of the
+sessions to help with problem selection and 'upsolving' for the advanced
+group.
+
+Before spring break the in-person class took place on Saturday mornings
+from 10:00am - 12:50pm.  A typical session would involved 30-50 minutes 
+discussion concerning some aspect of programming and/or competitive programming,
+selection of teams, and any preparation required for a 1-2 hour 'competition'
+usually on Kattis followed by a variable length of time spent in breakout
+sessions 'upsolving' problems in the contest.
+
+Contests typically consisted of (at least) two versions.  One for the beginners
+and one for the more advanced students.  Sometimes, we would break into mixed
+teams to allow the beginners a chance to work with the advanced students to
+observe and practice skills like problem ranking, sizing, and ordering.
