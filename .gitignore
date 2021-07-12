@@ -1,3 +1,4 @@
 .DS_Store
 ICPC.bbprojectd
-makefile
+Makefile
+Makefile.mk
