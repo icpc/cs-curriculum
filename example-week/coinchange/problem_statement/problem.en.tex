@@ -1,0 +1,30 @@
+\problemname{Vanilla DP1: Coin Change}
+
+As a cashier, you often need to make change. But this is kind of a mindless
+activity (the computer tells you the best way to make change for a given
+amount), so you get bored. One day, you start to wonder how many ways you could
+make change for a particular amount.
+ 
+You have an unlimited number of pennies (1 cent), nickels (5 cents), dimes (10
+cents), and quarters (25 cents).  A "way of making change" is a sequence $C_1$, $C_2$, ..., $C_N$, where $C_i\in \{1,5,10,25\}$ identifies
+the $i$-th coin type given to the customer. Note that, for example, giving the
+customer a nickel followed by a dime is different than giving the customer a
+dime followed by a nickel: \textbf{order matters}! Note also that coin types can be
+repeated. So, to make $25$ cents in change, you could give the customer five
+pennies, then a dime, and finally two nickels.
+ 
+Given an amount $X$ (in cents), how many ways
+are there to make change for that amount? \textbf{Since your answer may be large, print
+the remainder when your answer is divided by $10^9 + 7$.}
+ 
+\paragraph{Hint}
+Be careful when using the modulo operator! At every step of your computation,
+try to keep all your numbers reduced modulo $10^9 + 7$. 
+ 
+Note that $ (a + b) \% M =((a \% M) + (b \% M)) \% M $, and $ (a * b) \% M = ((a \% M) * (b \% M)) \% M $.
+ 
+\section*{Input}
+The input consists of a single line containing one integer $X$ ($1 \leq X \leq 10^5$), the amount (in cents) for which you want to make change.
+ 
+\section*{Output}
+Print a single integer: the number of ways to make change for $X$ cents. Since your answer may be large, print it modulo $10^9 + 7$.
