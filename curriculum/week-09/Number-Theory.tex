@@ -1,0 +1,282 @@
+\documentclass[t, handout]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{minted}
+\usepackage{graphicx}
+
+\title{Number Theory: Mods and Primes}
+\author{Aditya Arjun, Kevin Chen}
+\institute{CS 104C}
+\date{Fall 2019}
+
+\setbeamertemplate{footline}[frame number]{}
+
+\setbeamertemplate{navigation symbols}{}
+
+\begin{document}
+ 
+\frame{\titlepage}
+ 
+\begin{frame}
+
+    \frametitle{Modular Arithmetic}
+
+    \begin{itemize}
+
+        \item
+
+        As you've seen in past weeks' homeworks, many problems ask you to output an answer ``modulo $10^9 + 7$''
+        
+        \item
+
+        We use this number because
+        \begin{itemize}
+            \item It is prime,
+            \pause
+            \item It fits into an integer,
+        \end{itemize}
+
+        \item How do we work with ``modulo''?
+    \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Division Algorithm.}
+    \begin{itemize}
+        \item For every pair of integers $a, b$, there exist unique integers $q, r$ such that $a = q b + r$ and $0 \leq r < b$.
+        
+        \pause
+
+        As an example, if $a = 11, b = 5$, $a = 2 b + 1$. The quotient is $q = 2$, and the remainder is $r = 1$.
+        
+        \pause 
+        
+        \item In most languages, $a / b = q$, $a \% b = r$.
+        
+        \pause
+        
+        \item Be careful with negative values!
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+    \frametitle{Modular Arithmetic}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \begin{center}
+             \includegraphics[width=\textwidth]{clock.png}
+             \end{center}
+        \end{column}
+        
+        \begin{column}{0.5\textwidth}
+        \begin{itemize}
+            \item Clocks work ``modulo 12''.
+            
+            \pause
+            
+            \item What is 3 hours after 11? \pause 2.
+            
+            \pause
+            
+            \item Then we say $11 + 3 \equiv 2 \pmod{12}$.
+
+        \end{itemize}
+
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+
+    \frametitle{Modular rules}
+    
+    Which of the following are correct?
+    \begin{itemize}
+        \item $(a + b) \% m = ((a \% m) + (b \% m)) \% m$ ?
+        \pause
+        \item $(a - b) \% m = ((a \%{m}) - (b \%{m})) \% m$ ?
+        \pause
+        \item $(a \cdot b) \%{m} = ((a \%{m}) \cdot (b \%{m})) \% m$ ?
+        \pause
+        \item $(a / b) \%{m} = ((a \%{m}) / (b \%{m})) \% m$ ?
+        \pause
+        \item $a^b \%{m} = (a \%{m})^b = (a \%{m})^{(b \%{m})} \% m$ ?
+    \end{itemize}
+    
+    \pause
+    Answers: First 3 are true, fourth makes little sense, first part of the last one is true.
+    
+    \pause
+    Again, be careful with negatives and mod. We usually implement subtraction as (a \% m - b \% m + m) \% m. 
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Definitions}
+    
+    \begin{itemize}
+        \item $d$ is a \textbf{divisor} of $n$ if $d$ divides $n$ evenly.
+        \pause
+        \item Equivalent: $n \% d = 0$
+
+        \item A number is prime if it has exactly two positive divisors (1 and itself).
+    \end{itemize}
+    
+    \begin{minted}{java}
+    boolean isPrime(int n) {
+        for (int d = 2; d < n; ++d)
+            if (n % d == 0)
+                return false;
+        return true;
+    }
+    \end{minted}
+    
+    \pause
+    \begin{itemize}
+        \item Time complexity? \pause $O(N)$
+        \pause
+        \item Can we do better?
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}[fragile]
+
+    \frametitle{Primes}
+    
+    \begin{itemize}
+        \item \textbf{Problem:} Given a number $N$, determine whether it is prime
+        \item \textbf{Solution:} Check all possible divisors \textbf{up to $\sqrt{N}$}
+    \end{itemize}
+    
+    \begin{minted}{java}
+    boolean isPrime(int n) {
+        for (int d = 2; d * d <= n; ++d)
+            if (n % d == 0)
+                return false;
+        return true;
+    }
+    \end{minted}
+    
+    \pause
+    \begin{itemize}
+        \item Time complexity? \pause $O(\sqrt{N})$
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}[fragile]
+
+    \frametitle{Primes}
+    
+    \begin{itemize}
+        \item \textbf{Problem:} Given a number $N$, get all primes up to $N$
+        \pause
+        \item \textbf{Solution:} Assume every number is prime. Eliminate all the multiples of $2$, then all the multiples of $3$, \dots
+    \end{itemize}
+    
+    \begin{minted}{java}
+    List<Integer> getPrimes(int n) {
+        boolean composite = new boolean[n + 1];
+        List<Integer> primes = new ArrayList<Integer>();
+        for (int i = 2; i <= n; ++i) {
+            if (composite[i]) continue;
+            primes.add(i);
+            for (int j = 2 * i; j <= n; j += i)
+                composite[j] = true;
+        }
+        return primes;
+    }
+    \end{minted}
+    
+    \pause
+    \begin{itemize}
+        \item Time complexity? \pause $O(N \log N)$
+        \pause
+        \item Can we do better?
+    \end{itemize}
+    
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+    \frametitle{GCDs}
+    
+    \begin{itemize}
+        \item The greatest common divisor of two numbers $a$ and $b$ is the largest integer $g$ such that both $a$ and $b$ are multiples of $g$.
+        
+        \pause
+
+        \item Complex Approach: factor both numbers
+        
+        \pause
+        
+        \item Euclidean algorithm: Let $a = q b + r$. Note that if some value $g$ divides both $a$ and $b$, then $g$ divides $r$.
+        
+        \pause
+
+        Proof: $a = q b + r \implies r = a - qb$. Since $g$ divides both $a$ and $b$, $g$ divides $r$.
+    \end{itemize}
+    
+    \pause
+    \begin{minted}{java}
+    int gcd(int a, int b) {
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
+    \end{minted}
+    
+    \pause
+    \begin{itemize}
+        \item Time complexity? \pause $O(\log N)$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    
+    \frametitle{Modular rules, again}
+    
+    \begin{itemize}
+        \item \textbf{Problem:} Given $N$ people, calculate how many ways you can make a committee of $M$ people.
+        \pause
+        \item \textbf{Output your answer modulo} $\mathbf{10^9 + 7}$.
+        \pause
+        \item How do we compute the answer to this?
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+    
+    \frametitle{Modular rules, again}
+    
+    \begin{itemize}
+        \item Recall that we can't divide two numbers modulo a third
+        \pause
+        \item \textbf{Problem:} Divide two numbers modulo a third \pause (say, for binomial coefficients)
+        \pause
+        \item Let's say the third number is prime
+        \pause
+        \item If we want to divide $a$ by $b$ modulo $p$, we'll take $a \cdot b^{-1} \pmod{p}$, where $b^{-1}$ is a ``multiplicative inverse'' of $b$
+        \pause
+        \item Formally, $b^{-1}$ is a multiplicative inverse of $b$ if $b \cdot b^{-1} \equiv 1 \pmod{p}$
+        \pause
+        \item We can use Fermat's little theorem: $b^{p-1} \equiv 1 \pmod{p}$
+        \pause
+        \item Then $b^{-1} = b^{p-2}$
+        \pause
+        \item \textbf{Problem:} How can we compute this?
+        \pause
+        \item \textbf{Answer:} Exponentiation by squaring
+    \end{itemize}
+
+\end{frame}
+
+
+\end{document}

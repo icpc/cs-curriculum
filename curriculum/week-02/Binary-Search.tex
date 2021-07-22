@@ -1,0 +1,240 @@
+\documentclass[t]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{minted}
+\usepackage{tikz}
+
+% Math macros
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\ra}{\rightarrow}
+
+% Graph styles
+\tikzstyle{vertex}=[circle, fill=black!50, minimum size=25pt,inner sep=0pt, radius=50pt]
+\tikzstyle{selected vertex} = [vertex, fill=green!24]
+\tikzstyle{visited vertex} = [vertex, fill=gray!24]
+\tikzstyle{edge} = [draw,thick,-]
+\tikzstyle{dedge} = [draw,thick,->]
+\tikzstyle{weight} = [font=\scriptsize,pos=0.5]
+\tikzstyle{selected edge} = [draw,line width=2pt,-,red!50]
+\tikzstyle{ignored edge} = [draw,line width=5pt,-,black!20]
+
+\tikzset{
+  treenode/.style = {align=center, inner sep=0pt, text centered,
+    font=\sffamily},
+  vertex/.style = {treenode, circle, black, font=\sffamily\bfseries\tiny, draw=black, text width=1.8em},
+  rvertex/.style = {treenode, circle, black, font=\sffamily\bfseries\tiny, draw=red, text width=1.8em},
+}
+
+\title{Binary Search}
+\subtitle{Not your parents' binary search}
+\author{Ethan Arnold, Kevin Chen}
+\institute{CS 104C}
+\date{Spring 2019}
+
+\setbeamertemplate{footline}[frame number]{}
+
+\setbeamertemplate{navigation symbols}{}
+
+\begin{document}
+ 
+\frame{\titlepage}
+
+% Arnav
+\begin{frame}{How to write binary search}
+\begin{itemize}
+    \item \textbf{Java: } \pause \texttt{Collections.binarySearch(list, value);}
+    
+    \pause
+    
+    \item \textbf{C++: } \texttt{lower\_bound(vec.begin(), vec.end(), value);}
+    
+    \pause
+    
+    \item \textbf{Python: } \texttt{bisect.bisect\_left(arr, value)}
+\end{itemize}
+\end{frame} 
+ 
+% Ethan
+\begin{frame}{Why are we covering binary search?}
+\pause
+\begin{itemize}
+    \item \textbf{Problem:} Given a boolean array $A$ (with length $1 \leq n \leq 10^6$), what is the largest consecutive subarray of $0$s you can find if you are allowed to change at most $0 \leq k \leq n$ values in the array?
+    \pause
+    \item \textbf{Idea:} Write a function $p : \Z_{\geq 0} \ra \{T, F\}$ with $p(m) = T$ iff there is a subarray of length $m$ with at most $k$ $1$s
+    \pause
+    \item \textbf{Claim:} If $p(m) = T$, then $p(m-1) = T$; if $p(m) = F$, then $p(m+1) = F$ (these are actually equivalent statements)
+    \begin{itemize}
+        \item Why is this true?
+        \pause
+        \item If we have a window of size $m$ with $\leq k$ $1$s, then we can easily find a window of size $m - 1$ with $\leq k$ $1$s --- just shrink that same window
+        \item If every window of size $m$ has $> k$ $1$s, then every window of size $m + 1$ will have $> k$ $1$s
+        \pause
+        \item Why is this helpful?
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+% Ethan
+\begin{frame}{Sliding Window Technique}
+\begin{itemize}
+    \item \textbf{Problem:} Given a boolean array $A$ (with length $1 \leq n \leq 10^6$), what is the largest subarray of $0$s you can find if you are allowed to change at most $0 \leq k \leq n$ values in the array?
+    \pause
+    \item Say we want to know if
+    it's possible for a fixed size $m \leq n$.
+    \pause
+    \item Find the sum of the first $m$ elements.
+    \pause
+    \item ``slide'' the window by adding
+    the next element and subtracting
+    the first element.
+\end{itemize}
+\end{frame}
+
+% Arnav
+\begin{frame}{Formalization}
+\begin{itemize}
+    \item Consider a predicate function $p$ defined over the natural numbers
+    \item For any natural number $i$, $p(i) = T$ or $p(i) = F$
+        
+    \pause
+        
+    \item $p$ is also a sequence of $T$ followed by a sequence of $F$. Mathematically, it is \emph{monotonic}
+        
+    \pause 
+    
+    \begin{center}
+        \begin{tabular}{ccccccccccccccccccc}
+            $i$ & $0$ & $1$ & $\cdots$ & $j-1$ & \color{red}{$j$} & $j+1$ &     $\cdots$ & $n-2$ & $n-1$ \\
+            \hline
+            $p(i)$ & $T$ & $T$ & $\cdots$ & $T$ & \color{red}{$T$} & $F$ & $\cdots$ & $F$ & $F$ \\
+        \end{tabular}
+    \end{center}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Binary search history}
+\begin{itemize}
+
+\item ``While the first binary search was published in 1946...
+
+\pause
+
+\item the first binary search that works correctly for all values of n did not appear until 1962.''
+
+\pause
+
+\item A bug was discovered in Java's binary search as recently as 2006!
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Bug free binary search}
+\begin{itemize}
+    \item
+    
+    \textbf{Function:} BinarySearch($p$, $max\_input$)
+    
+    \begin{itemize}
+    
+        \item
+        
+        $lo = 0$
+        
+        \item
+        
+        $hi = max\_input$
+        
+        \item 
+        
+        assert $p(lo) == T$
+        
+        \item 
+        
+        assert $p(hi) == F$
+
+        \item
+        
+        while $lo + 1 < hi$
+        
+        \begin{itemize}
+        
+            \item
+            
+            $mid = \lfloor \frac{lo + hi}{2} \rfloor$
+            
+            \item
+            
+            if $p(mid) == T$, then $lo = mid$
+            
+            \item
+                
+            else, $hi = mid$
+            
+        \end{itemize}
+        
+    \end{itemize}
+
+    \pause 
+    
+    \item What can you guarantee about $lo$ and $hi$ throughout the program?
+    
+    \pause
+    
+    \item What is special about $lo$ and $hi$ at the end of the while loop?
+    
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Finding high}
+\begin{itemize}
+    \item Say we have a $p(i)$ function defined on all the natural numbers. For binary search to work, we need a $lo$ and a $hi$. 
+    
+    \item How can we find that $hi$?
+    
+    \pause
+    
+    \item Start with $lo = 0$, $hi = 1$, 
+    \item Keep doubling $hi$ until $p(lo) \neq p(hi)$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Escaping the natural numbers}
+\begin{itemize}
+    \item There is no need for $p(i)$ to be restricted to the natural numbers
+    
+    \pause 
+    
+    \item Any totally ordered set can be used as a domain
+    
+    \pause 
+    
+    \item This includes the real numbers!
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Maximum average}
+\begin{itemize}
+    \item \textbf{Problem:} Given a list of $1 \leq n \leq 10^6$ integers, find a non-empty subarray with maximum average
+    \pause
+    \begin{itemize}
+        \item The subarray must have at least $k$ elements
+    \end{itemize}
+    \pause
+    \item \textbf{Idea:} Let $p : \R \ra \{T, F\}$ with $p(x) = T$ iff there exists a non-empty subarray with average at least $x$
+    \pause
+    \begin{itemize}
+        \item How can we compute this?
+    \end{itemize}
+    \pause
+    \item \textbf{Question:} Can we binary search on $x$ (the answer)?
+    \pause
+    \begin{itemize}
+        \item How many iterations of binary search do we need?
+        \pause
+        \item The online judge will tell us, but usually $200$ or so is overkill for double-precision floats
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\end{document}

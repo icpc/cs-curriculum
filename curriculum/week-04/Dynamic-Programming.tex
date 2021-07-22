@@ -1,0 +1,735 @@
+\documentclass[t]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{minted}
+
+\title{Dynamic Programming}
+\author{Aditya Arjun, Kevin Chen}
+\institute{CS 104C}
+\date{Fall 2019}
+
+\setbeamertemplate{footline}[frame number]{}
+
+\setbeamertemplate{navigation symbols}{}
+
+\begin{document}
+ 
+\frame{\titlepage}
+ 
+\begin{frame}
+
+    \frametitle{Recursion review}
+
+    \begin{itemize}
+
+        \item
+
+        Fibonacci sequence
+
+        \begin{itemize}
+
+            \item $F_0 = 0$
+            \item $F_1 = 1$
+            \item $F_n = F_{n-2} + F_{n-1}$, for $n \geq 2$
+
+        \end{itemize}
+
+        \pause
+
+        \item
+
+        How do we code this?
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+    \frametitle{Recursive Fibonacci}
+
+    \begin{minted}{java}
+    int fib(int n) {
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        return fib(n - 2) + fib(n - 1);
+    }
+    \end{minted}
+
+    \pause
+
+    \begin{itemize}
+
+        \item
+
+        Problems?
+
+        \pause
+
+        \begin{itemize}
+
+            \item
+
+            Work is repeated
+
+        \end{itemize}
+
+        \pause
+
+        \item
+
+        How do we fix it?
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+    \frametitle{Recursive Fibonacci with memoization}
+    
+    \begin{minted}{java}
+    int fib(int n,
+            HashMap<Integer, Integer> memo) {
+
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        if (memo.containsKey(n))
+            return memo.get(n);
+
+        int answer = fib(n - 2, memo) +
+                     fib(n - 1, memo);
+        memo.put(n, answer);
+        return answer;
+    }
+    \end{minted}
+
+    \pause
+
+    \begin{itemize}
+
+        \item
+
+        Time complexity? \pause $O(N)$ \pause
+
+        \item
+
+        Space complexity? \pause $O(N)$
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+    \frametitle{Memoization}
+
+    \begin{itemize}
+
+        \item
+
+        This technique is called \textbf{memoization}
+
+        \pause
+
+        \begin{itemize}
+
+            \item
+
+            Also called \textbf{top-down} dynamic programming
+
+        \end{itemize}
+
+        \pause
+
+        \item
+
+        We just save the ``smaller'' solutions as we go
+
+        \pause
+
+        \item
+
+        Problems?
+
+        \pause
+
+        \begin{itemize}
+
+            \item
+
+            Stack overflow risk
+
+        \end{itemize}
+
+        \pause
+
+        \item
+
+        How do we fix it?
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+    \frametitle{Iterative Fibonacci}
+    
+    \begin{minted}{java}
+    int fib(int n) {
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        dp[1] = 1;
+        for (int i = 2; i <= n; i++)
+            dp[i] = dp[i - 2] + dp[i - 1];
+
+        return dp[n];
+    }
+    \end{minted}
+
+    \pause
+
+    \begin{itemize}
+
+        \item
+
+        Time complexity? \pause $O(N)$ \pause
+
+        \item
+
+        Space complexity? \pause $O(N)$
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+    \frametitle{Iterative Fibonacci}
+    
+    \begin{minted}{java}
+    int fib(int n) {
+        if (n == 0) return 0;
+        int a = 0;
+        int b = 1;
+        for (int i = 0; i < n - 1; i++) {
+            int newB = a + b;
+            a = b;
+            b = newB;
+        }
+
+        return b;
+    }
+    \end{minted}
+
+    \begin{itemize}
+
+        \item
+
+        Time complexity? $O(N)$
+
+        \item
+
+        Space complexity? $O(1)$
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+    \frametitle{Bottom-up dynamic programming}
+
+    \begin{itemize}
+
+        \item
+
+        This technique is called \textbf{bottom-up} dynamic programming
+
+        \pause
+
+        \item
+
+        No stack overflow risk
+
+        \pause
+
+        \item
+
+        Often a significant constant factor faster than top-down
+
+        \pause
+
+        \item
+
+        Less natural to write at first, but easier to optimize memory
+
+        \pause
+
+        \item
+
+        Must think about iteration order
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+    \frametitle{Coin change, revisited}
+
+    \begin{itemize}
+
+        \item
+
+        \textbf{Problem:} Given a set of $K$ coin values $\{C_1, C_2, \dots, C_K\}$ and a target value $N$, can we choose an integer quantity $Q_i \geq 0$ for each coin such that $N = Q_1 \cdot C_1 + \cdots + Q_K \cdot C_K$? \pause What is the minimum number of coins ($\sum_{i \leq K} Q_i$) needed to do so?
+
+        \pause
+
+        \item
+
+        As we saw last week, greedy doesn't always work
+
+        \pause
+
+        \item
+
+        Let $DP_i = $ the minimum number of coins to make a target value of $i$
+
+        \pause
+
+        \begin{itemize}
+
+            \item
+
+            $DP_N$ will be our answer
+
+        \end{itemize}
+
+        \pause
+
+        \item
+
+        Can we write $DP_i$ as a recurrence?
+
+        \pause
+
+        \begin{itemize}
+
+            \item
+
+            Base case: $DP_0 = 0$
+
+            \item
+
+            Recursive case: $DP_i = \min_{j \leq K}(DP_{i - Q_j} + 1)$
+
+        \end{itemize}
+
+        \pause
+
+        \item
+
+        How do we code this?
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+    \frametitle{Coin change solution}
+    
+    \begin{minted}{java}
+    int minCoins(int n, int[] coinValues) {
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        for (int i = 1; i <= n; i++) {
+            dp[i] = INF;
+            for (int coinValue : coinValues)
+                if (i - coinValue >= 0 &&
+                    dp[i - coinValue] + 1 < dp[i])
+                    dp[i] = dp[i - coinValue] + 1;
+        }
+
+        return dp[n] >= INF ? -1 : dp[n];
+    }
+    \end{minted}
+
+    \pause
+
+    \begin{itemize}
+
+        \item
+
+        Time complexity? \pause $O(KN)$ \pause
+
+        \item
+
+        Space complexity? \pause $O(N)$ \pause (could be reduced to $O(\max_{i \leq K} C_i)$)
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+    \frametitle{Dynamic programming approach}
+
+    \begin{enumerate}
+
+        \item
+
+        Write the problem as a recurrence (including one or more base cases)
+
+        \pause
+
+        \begin{itemize}
+
+            \item
+
+            This is the hard part!
+
+        \end{itemize}
+
+        \pause
+
+        \item
+
+        Code the recurrence in a bottom-up (iterative) or top-down (recursive/memoized) manner
+
+    \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+
+    \frametitle{Longest increasing subarray}
+
+    \begin{itemize}
+
+        \item
+
+        \textbf{Problem:} Given an array $A$ of length $N$, what is the length of the longest increasing subarray?
+
+        \begin{itemize}
+
+            \item
+
+            A subarray $A_{i:j}$ is a \textit{contiguous} segment of the array $A$, identified by a start and end index $i$ and $j$ where $1 \leq i \leq j \leq N$
+
+            \item
+
+            A subarray $A_{i:j}$ is \textit{increasing} if, for every $i \leq k_1 \leq k_2 \leq j$, $A_{k_1} \leq A_{k_2}$
+
+        \end{itemize}
+
+        \pause
+
+        \item
+
+        Can we write a recurrence for this problem?
+
+        \pause
+
+        \begin{itemize}
+
+            \item
+
+            Let $DP_i = $ the length of the longest increasing subarray \textit{ending with element $i$}
+
+            \pause
+
+            \item
+
+            Our answer will be $\max_{1 \leq i \leq N} DP_i$
+
+            \pause
+
+            \item
+
+            Base case: $DP_1 = 1$
+
+            \item
+
+            Recursive case:
+
+            \begin{itemize}
+
+                \item
+
+                If $A_i \geq A_{i-1}$, then $DP_i = DP_{i-1} + 1$
+
+                \item
+
+                If $A_i < A_{i-1}$, then $DP_i = 1$
+
+            \end{itemize}
+
+        \end{itemize}
+
+        \pause
+
+        \item
+
+        How do we code this?
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+    \frametitle{Longest increasing subarray solution}
+    
+    \begin{minted}{java}
+    int longestIncreasingSubarray(int[] arr) {
+        int answer = 0;
+        int[] dp = new int[arr.length];
+        dp[0] = 1;
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] >= arr[i - 1])
+                dp[i] = dp[i - 1] + 1;
+            else
+                dp[i] = 1;
+            if (dp[i] > answer)
+                answer = dp[i];
+        }
+        return answer;
+    }
+    \end{minted}
+
+    \pause
+
+    \begin{itemize}
+
+        \item
+
+        Time complexity? \pause $O(N)$ \pause
+
+        \item
+
+        Space complexity? \pause $O(N)$ \pause (could be reduced to $O(1)$)
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+    \frametitle{Longest increasing subsequence}
+
+    \begin{itemize}
+
+        \item
+
+        \textbf{Problem:} Given an array $A$ of length $N$, what is the length of the longest increasing subsequence?
+
+        \begin{itemize}
+
+            \item
+
+            A subsequence $A_{i_1, i_2, \dots, i_K}$ is a sequence of elements obtained by removing some number of elements (possibly zero) from $A$, but keeping the rest in order, identified by a set of included indices $i_1, i_2, \dots, i_K$ where $1 \leq i_1 < i_2 < \cdots < i_K \leq N$
+
+            \item
+
+            A subsequence $A_{i_1, i_2, \dots, i_K}$ is \textit{increasing} if, for every $k_1, k_2 \in \{i_1, i_2, \dots, i_K\}$, $k_1 < k_2 \rightarrow A_{k_2} \geq A_{k_1}$.
+
+        \end{itemize}
+
+        \pause
+
+        \item
+
+        Can we write a recurrence for this problem?
+
+        \pause
+
+        \begin{itemize}
+
+            \item
+
+            Let $DP_i = $ the length of the longest increasing subsequence \textit{ending with element $i$}
+
+            \pause
+
+            \item
+
+            Our answer will be $\max_{1 \leq i \leq N} DP_i$
+
+            \pause
+
+            \item
+
+            Base case: $DP_1 = 1$
+
+            \item
+
+            Recursive case: $DP_i = \max_{1 \leq j < i, A_j \leq A_i} (DP_j + 1)$
+
+        \end{itemize}
+
+        \pause
+
+        \item
+
+        How do we code this?
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+    \frametitle{Longest increasing subsequence solution}
+    
+    \begin{minted}{java}
+    int longestIncreasingSubsequence(int[] arr) {
+        int answer = 0;
+        int[] dp = new int[arr.length];
+        dp[0] = 1;
+        for (int i = 1; i < arr.length; i++) {
+            dp[i] = 0;
+            for (int j = 0; j < i; j++)
+                if (arr[j] <= arr[i] &&
+                    dp[j] + 1 > dp[i])
+                    dp[i] = dp[j] + 1;
+            if (dp[i] > answer)
+                answer = dp[i];
+        }
+        return answer;
+    }
+    \end{minted}
+
+    \pause
+
+    \begin{itemize}
+
+        \item
+
+        Time complexity? \pause $O(N^2)$ \pause (could be reduced to $O(N \log N)$) \pause
+
+        \item
+
+        Space complexity? \pause $O(N)$
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+    \frametitle{Maximum path sum}
+
+    \begin{itemize}
+
+        \item
+
+        \textbf{Problem:} Given an $M \times N$ matrix $A$ of integers, what is the maximum sum on a path from the top left of the matrix to the bottom right, where each move is either down or right?
+
+        \pause
+
+        \item
+
+        Can we write a recurrence for this problem?
+
+        \pause
+
+        \begin{itemize}
+
+            \item
+
+            Let $DP_{i,j} = $ the maximum sum on a path from the top left of the matrix to the element $A_{i,j}$
+
+            \pause
+
+            \item
+
+            Our answer will be $DP_{M,N}$
+
+            \pause
+
+            \item
+
+            Base case: $DP_{1,1} = A_{i,j}$
+
+            \item
+
+            Recursive case:
+
+            \begin{itemize}
+
+                \item
+
+                If $i = 1$, then $DP_{i,j} = DP_{i,j-1} + A_{i,j}$
+
+                \item
+
+                If $j = 1$, then $DP_{i,j} = DP_{i-1,j} + A_{i,j}$
+
+                \item
+
+                If $i \neq 1$ and $j \neq 1$, then $DP_{i,j} = \max \{DP_{i-1,j} + 1, DP_{i,j-1} + 1\}$
+
+            \end{itemize}
+
+        \end{itemize}
+
+        \pause
+
+        \item
+
+        How do we code this?
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+    \frametitle{Maximum path sum solution}
+    
+    \begin{minted}{java}
+    int maxPathSum(int[][] mat) {
+        int M = mat.length, N = mat[0].length;
+        int[][] dp = new int[M][N];
+        for (int i = 0; i < M; i++)
+            for (int j = 0; j < N; j++) {
+                dp[i][j] = Integer.MIN_VALUE;
+                if (i == 0 && j == 0)
+                    dp[0][0] = mat[0][0];
+                if (i > 0 && dp[i - 1][j] +
+                    mat[i][j] > dp[i][j])
+                    dp[i][j] = dp[i - 1][j] + mat[i][j];
+                if (j > 0 && dp[i][j - 1] +
+                    mat[i][j] > dp[i][j])
+                    dp[i][j] = dp[i][j - 1] + mat[i][j];
+            }
+        return dp[M - 1][N - 1];
+    }
+    \end{minted}
+
+\end{frame}
+
+\begin{frame}
+    
+    \frametitle{Maximum path sum solution}
+
+    \begin{itemize}
+
+        \item
+
+        Time complexity? \pause $O(MN)$ \pause
+
+        \item
+
+        Space complexity? \pause $O(MN)$ \pause (could reduce to $O(\min \{M, N\})$)
+
+    \end{itemize}
+
+\end{frame}
+
+\end{document}
