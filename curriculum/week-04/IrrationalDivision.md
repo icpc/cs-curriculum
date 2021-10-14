@@ -1,5 +1,5 @@
 <h2>Editorial: Irrational Division</h2>
-Link:[https://open.kattis.com/problems/irrationaldivision](https://open.kattis.com/problems/irrationaldivision)
+**Link**:[https://open.kattis.com/problems/irrationaldivision/](https://open.kattis.com/problems/irrationaldivision/)
 
 In thinking about this problem, one must look at what pieces of information affect the state of the game. The obvious things that affect the game are
 
