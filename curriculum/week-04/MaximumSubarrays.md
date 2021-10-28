@@ -6,9 +6,10 @@ through the data, left to right, keeping track of the current state, necessary i
 proceed through making future choices. In this problem, imagine forming the k subarrays as you are moving left to
 right. After processing some values (let's say the first m values), the items that matter as as follows:
 
-(1) How many values have already been processed. (m)
-(2) How many completed subarrays have already been formed. (done)
-(3) Is there a current subarray that is "open" that can be extended? (open)
+(1) How many values have already been processed. (m)<br>
+(2) How many completed subarrays have already been formed. (done)<br>
+(3) Is there a current subarray that is "open" that can be extended? (open)<br>
+
 <pre>
 Consider the array: 3, -5, 2, 4, -1, 7, -3, -4, 1, 2
                               ^
