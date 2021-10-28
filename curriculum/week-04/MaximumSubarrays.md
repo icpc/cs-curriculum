@@ -10,7 +10,7 @@ right. After processing some values (let's say the first m values), the items th
 (2) How many completed subarrays have already been formed. (done)
 (3) Is there a current subarray that is "open" that can be extended? (open)
 
-Consider the array: 3, -5, 2, 4, -1, 7, -3, -4, 1, 2
+Consider the array: 3, -5, 2, 4, -1, 7, -3, -4, 1, 2<br>
                               ^
                               
 Imagine the situation with m = 3, done = 1, and open = True. In this case, f(3, 1, True) corresponds to the best score 
